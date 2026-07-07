@@ -5,93 +5,194 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PandaX Cloud</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-    body { background: #0b1220; color: white; }
-    header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 22px 32px; background: #121c30; border-bottom: 1px solid #24324d;
-    }
-    .logo { font-size: 26px; font-weight: bold; color: #4da3ff; }
-    nav a { color: #cbd5e1; text-decoration: none; margin: 0 8px; }
-    .hero { text-align: center; padding: 90px 20px 60px; }
-    .hero h1 { font-size: 42px; margin-bottom: 18px; line-height: 1.4; }
-    .hero p { font-size: 18px; color: #b8c2d6; max-width: 760px; margin: 0 auto 34px; line-height: 1.9; }
-    .btn { padding: 15px 28px; border: none; border-radius: 12px; font-size: 17px; cursor: pointer; margin: 8px; }
-    .blue { background: #2b7cff; color: white; }
-    .gray { background: #293547; color: white; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; padding: 34px; }
-    .card { background: #172338; padding: 28px; border-radius: 18px; border: 1px solid #273449; transition: .25s; min-height: 150px; }
-    .card:hover { transform: translateY(-6px); border-color: #3b82f6; }
-    .card h2 { margin-bottom: 14px; color: #ffffff; }
-    .card p { color: #b8c2d6; line-height: 1.8; }
-    .dashboard {
-      margin: 30px auto; width: min(1100px, calc(100% - 40px));
-      background: #111827; border: 1px solid #273449; border-radius: 22px; padding: 26px;
-    }
-    .dashboard h2 { margin-bottom: 18px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
-    .stat { background: #0b1220; border: 1px solid #273449; border-radius: 16px; padding: 20px; }
-    .stat strong { display: block; font-size: 28px; margin-bottom: 8px; color: #4da3ff; }
-    footer { padding: 36px; text-align: center; color: #94a3b8; }
-    @media (max-width: 600px) {
-      header { flex-direction: column; gap: 12px; }
-      .hero h1 { font-size: 30px; }
-      nav { display: none; }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Tahoma,sans-serif}
+    body{background:#07111f;color:#fff;line-height:1.8}
+    a{text-decoration:none;color:inherit}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(11,18,32,.94);border-bottom:1px solid #22314a}
+    .nav{max-width:1180px;margin:auto;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{font-size:28px;font-weight:900;color:#4da3ff}
+    .menu{display:flex;gap:18px;color:#cbd5e1;font-size:15px}
+    .nav-actions{display:flex;gap:10px}
+    .btn{border:0;border-radius:14px;padding:13px 20px;font-size:16px;cursor:pointer;font-weight:700}
+    .primary{background:#2f7df6;color:white;box-shadow:0 12px 30px rgba(47,125,246,.25)}
+    .dark{background:#1d2a3e;color:white;border:1px solid #32445f}
+    .ghost{background:transparent;color:#cbd5e1;border:1px solid #334155}
+    .hero{max-width:1180px;margin:auto;padding:85px 22px 50px;display:grid;grid-template-columns:1.1fr .9fr;gap:35px;align-items:center}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#13233a;border:1px solid #28415f;color:#9fd0ff;border-radius:999px;padding:8px 14px;margin-bottom:22px}
+    h1{font-size:48px;line-height:1.35;margin-bottom:20px}
+    .lead{font-size:20px;color:#b9c7d8;margin-bottom:28px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .panel{background:linear-gradient(145deg,#101b2d,#0b1322);border:1px solid #27364f;border-radius:28px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+    .screen{background:#0a1220;border:1px solid #22314a;border-radius:22px;overflow:hidden}
+    .screen-head{padding:14px 18px;background:#122039;border-bottom:1px solid #22314a;display:flex;justify-content:space-between}
+    .screen-body{padding:18px;display:grid;gap:14px}
+    .device{background:#142138;border:1px solid #2a3d5b;border-radius:16px;padding:16px;display:flex;justify-content:space-between;align-items:center}
+    .dot{width:10px;height:10px;border-radius:50%;background:#22c55e;display:inline-block;margin-left:8px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1180px;margin:20px auto;padding:0 22px}
+    .stat,.card,.form-card{background:#111d31;border:1px solid #27364f;border-radius:22px;padding:24px}
+    .stat strong{font-size:34px;color:#4da3ff;display:block}
+    .section{max-width:1180px;margin:55px auto;padding:0 22px}
+    .section h2{font-size:34px;margin-bottom:12px}
+    .muted{color:#aab8ca}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+    .card h3{font-size:22px;margin-bottom:10px;color:#fff}
+    .icon{font-size:34px;margin-bottom:10px}
+    .auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:24px}
+    label{display:block;color:#cbd5e1;margin:10px 0 6px}
+    input,select{width:100%;padding:14px;border-radius:12px;border:1px solid #334155;background:#081322;color:white;font-size:15px}
+    .mini-note{font-size:13px;color:#8ea0b7;margin-top:8px}
+    .dashboard{display:grid;grid-template-columns:260px 1fr;gap:18px;margin-top:24px}
+    .sidebar{background:#0d1728;border:1px solid #27364f;border-radius:22px;padding:18px}
+    .side-item{padding:12px;border-radius:12px;color:#cbd5e1;margin-bottom:6px;background:#111d31}
+    .main-dash{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .activity{grid-column:1/-1}
+    table{width:100%;border-collapse:collapse;margin-top:10px;color:#cbd5e1}
+    td,th{padding:12px;border-bottom:1px solid #27364f;text-align:right}
+    footer{margin-top:60px;padding:35px;text-align:center;color:#8ba0b8;border-top:1px solid #22314a}
+    @media(max-width:850px){
+      .hero{grid-template-columns:1fr;padding-top:55px}
+      h1{font-size:34px}
+      .menu{display:none}
+      .stats,.cards,.auth-grid,.main-dash{grid-template-columns:1fr}
+      .dashboard{grid-template-columns:1fr}
+      .brand{font-size:24px}
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">🐼 PandaX Cloud</div>
-    <nav>
-      <a href="#">الرئيسية</a>
-      <a href="#">الأجهزة</a>
-      <a href="#">الأمان</a>
-      <a href="#">الاشتراكات</a>
-    </nav>
+  <header class="topbar">
+    <div class="nav">
+      <div class="brand">PandaX Cloud 🐼</div>
+      <div class="menu">
+        <a href="#features">الميزات</a>
+        <a href="#auth">الحساب</a>
+        <a href="#dashboard">لوحة التحكم</a>
+        <a href="#security">الأمان</a>
+      </div>
+      <div class="nav-actions">
+        <a class="btn ghost" href="#auth">دخول</a>
+        <a class="btn primary" href="#auth">ابدأ الآن</a>
+      </div>
+    </div>
   </header>
 
-  <section class="hero">
-    <h1>منصة احترافية لإدارة الأجهزة المصرّح بها</h1>
-    <p>
-      PandaX Cloud منصة آمنة لإدارة الأجهزة، متابعة الحالة، إرسال التنبيهات،
-      وسجل النشاط من لوحة تحكم حديثة وسريعة ومتعددة اللغات.
-    </p>
-    <button class="btn blue">ابدأ التجربة المجانية</button>
-    <button class="btn gray">تسجيل الدخول</button>
-  </section>
+  <main>
+    <section class="hero">
+      <div>
+        <div class="badge">🔐 منصة إدارة أجهزة مصرح بها فقط</div>
+        <h1>إدارة أجهزتك من لوحة تحكم احترافية وآمنة</h1>
+        <p class="lead">
+          PandaX Cloud منصة حديثة لمتابعة حالة الأجهزة، تنظيم الصلاحيات، إرسال التنبيهات،
+          ومراقبة النشاط من مكان واحد مع واجهة عربية احترافية.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#auth">إنشاء حساب</a>
+          <a class="btn dark" href="#dashboard">معاينة لوحة التحكم</a>
+        </div>
+      </div>
 
-  <section class="cards">
-    <div class="card">
-      <h2>ربط الأجهزة</h2>
-      <p>إضافة الأجهزة عن طريق رمز تفعيل وموافقة واضحة من صاحب الجهاز.</p>
-    </div>
-    <div class="card">
-      <h2>لوحة تحكم</h2>
-      <p>متابعة الأجهزة والحالة والبطارية والشبكة من مكان واحد.</p>
-    </div>
-    <div class="card">
-      <h2>الأمان</h2>
-      <p>سجل نشاط، تشفير، جلسات آمنة، وصلاحيات متعددة للمستخدمين.</p>
-    </div>
-    <div class="card">
-      <h2>التطوير القادم</h2>
-      <p>تسجيل دخول، قاعدة بيانات، API، ولوحة إدارة متقدمة.</p>
-    </div>
-  </section>
+      <div class="panel">
+        <div class="screen">
+          <div class="screen-head">
+            <strong>لوحة الأجهزة</strong>
+            <span class="muted">Live</span>
+          </div>
+          <div class="screen-body">
+            <div class="device"><span><i class="dot"></i> جهاز Android — متصل</span><b>96%</b></div>
+            <div class="device"><span><i class="dot"></i> جهاز عمل — متصل</span><b>82%</b></div>
+            <div class="device"><span style="color:#fbbf24">●</span> جهاز تجريبي — بانتظار الموافقة <b>Pending</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <section class="dashboard">
-    <h2>معاينة لوحة التحكم</h2>
-    <div class="grid">
-      <div class="stat"><strong>12</strong> جهاز مسجل</div>
-      <div class="stat"><strong>8</strong> أجهزة متصلة</div>
-      <div class="stat"><strong>24</strong> عملية اليوم</div>
-      <div class="stat"><strong>99%</strong> حالة الأمان</div>
-    </div>
-  </section>
+    <section class="stats">
+      <div class="stat"><strong>12</strong><span>جهاز مسجل</span></div>
+      <div class="stat"><strong>8</strong><span>متصل الآن</span></div>
+      <div class="stat"><strong>43</strong><span>عملية اليوم</span></div>
+      <div class="stat"><strong>99%</strong><span>حالة الأمان</span></div>
+    </section>
+
+    <section id="features" class="section">
+      <h2>الميزات الأساسية</h2>
+      <p class="muted">هذه المرحلة الثانية تضيف تصميمًا أقرب لمنصة حقيقية، وسنربطها لاحقًا بقاعدة بيانات وتسجيل دخول فعلي.</p>
+      <div class="cards">
+        <div class="card"><div class="icon">📱</div><h3>إضافة جهاز</h3><p class="muted">ربط الأجهزة بكود تفعيل وموافقة واضحة من صاحب الجهاز.</p></div>
+        <div class="card"><div class="icon">📊</div><h3>متابعة الحالة</h3><p class="muted">عرض الاتصال، البطارية، الشبكة، وآخر نشاط بشكل منظم.</p></div>
+        <div class="card"><div class="icon">🔔</div><h3>تنبيهات</h3><p class="muted">إرسال إشعارات وتنبيهات إدارية للأجهزة المصرح بها.</p></div>
+        <div class="card"><div class="icon">👥</div><h3>صلاحيات</h3><p class="muted">مستخدم، مدير، ومشرف مع فصل واضح للصلاحيات.</p></div>
+        <div class="card"><div class="icon">🧾</div><h3>سجل النشاط</h3><p class="muted">تسجيل كل عملية لضمان الشفافية والمراجعة.</p></div>
+        <div class="card"><div class="icon">🛡️</div><h3>حماية</h3><p class="muted">تشفير، جلسات آمنة، ومصادقة ثنائية في المراحل القادمة.</p></div>
+      </div>
+    </section>
+
+    <section id="auth" class="section">
+      <h2>الحسابات</h2>
+      <p class="muted">نماذج واجهة أولية. في المرحلة القادمة سنجعلها تعمل فعليًا.</p>
+      <div class="auth-grid">
+        <div class="form-card">
+          <h3>إنشاء حساب جديد</h3>
+          <label>الاسم الكامل</label>
+          <input placeholder="مثال: Sufyan Alrawi">
+          <label>البريد الإلكتروني</label>
+          <input placeholder="example@email.com">
+          <label>نوع الحساب</label>
+          <select><option>مستخدم</option><option>مدير</option></select>
+          <p class="mini-note">لاحقًا سنضيف التحقق بالبريد والصورة والموقع حسب الحاجة القانونية.</p>
+          <button class="btn primary" style="margin-top:16px;width:100%">إنشاء الحساب</button>
+        </div>
+        <div class="form-card">
+          <h3>تسجيل الدخول</h3>
+          <label>البريد الإلكتروني</label>
+          <input placeholder="example@email.com">
+          <label>كلمة المرور</label>
+          <input type="password" placeholder="••••••••">
+          <button class="btn dark" style="margin-top:16px;width:100%">دخول إلى اللوحة</button>
+          <p class="mini-note">هذه أزرار واجهة فقط الآن، وسنربطها لاحقًا بنظام دخول حقيقي.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section">
+      <h2>معاينة لوحة التحكم</h2>
+      <div class="dashboard">
+        <aside class="sidebar">
+          <div class="side-item">🏠 الرئيسية</div>
+          <div class="side-item">📱 الأجهزة</div>
+          <div class="side-item">👥 المستخدمون</div>
+          <div class="side-item">🔔 التنبيهات</div>
+          <div class="side-item">🧾 السجل</div>
+          <div class="side-item">⚙️ الإعدادات</div>
+        </aside>
+        <div class="main-dash">
+          <div class="stat"><strong>3</strong><span>أجهزة تحتاج مراجعة</span></div>
+          <div class="stat"><strong>2</strong><span>طلبات موافقة جديدة</span></div>
+          <div class="card activity">
+            <h3>آخر النشاط</h3>
+            <table>
+              <tr><th>العملية</th><th>الحالة</th><th>الوقت</th></tr>
+              <tr><td>إضافة جهاز</td><td>بانتظار الموافقة</td><td>قبل 5 دقائق</td></tr>
+              <tr><td>تسجيل دخول</td><td>ناجح</td><td>قبل 12 دقيقة</td></tr>
+              <tr><td>تحديث إعدادات</td><td>مكتمل</td><td>اليوم</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="security" class="section">
+      <h2>الأمان والالتزام</h2>
+      <div class="card">
+        <p class="muted">
+          هذا المشروع مخصص لإدارة الأجهزة التي يملكها المستخدم أو لديه تفويض صريح لإدارتها.
+          سنبني كل الميزات القادمة على مبدأ الموافقة الواضحة، الشفافية، وسجل النشاط الكامل.
+        </p>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    PandaX Cloud © 2026 — نسخة أولى جاهزة للنشر على Vercel
+    PandaX Cloud © 2026 — المرحلة الثانية
   </footer>
 </body>
 </html>
